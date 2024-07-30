@@ -1,0 +1,72 @@
+<nb-layout>
+  <nb-layout-header fixed>jadolfo.gmz.404&#64;gmail.com</nb-layout-header>  
+  <nb-layout-column>
+    <div class="container">
+      <nb-card size="medium">
+        <nb-card-body>
+          <form [formGroup]="form">
+            <nb-form-field>
+              <input [type]="'text'" formControlName="name" nbInput 
+              status="{{form.get('name')?.errors && (form.get('name')?.dirty || form.get('name')?.touched) ? 'danger' : 'basic'}}" placeholder="Nombre">
+              <nb-icon nbPrefix icon="person-outline" pack="eva"></nb-icon>
+            </nb-form-field>
+            @if (form.get('name')?.invalid && (form.get('name')?.dirty || form.get('name')?.touched)) {
+              <ul class="error-list">
+                @if (form.get('name')?.errors?.['required']) {
+                  <li><span class="label text-danger">El nombre es requerido</span></li>
+                }
+              </ul>
+            }
+            <nb-form-field>
+              <input [type]="'text'" formControlName="email" nbInput 
+              status="{{form.get('email')?.errors && (form.get('email')?.dirty || form.get('email')?.touched) ? 'danger' : 'basic'}}" placeholder="Correo">
+              <nb-icon nbPrefix icon="email-outline" pack="eva"></nb-icon>
+            </nb-form-field>
+            @if (form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)) {
+              <ul class="error-list">
+                @if (form.get('email')?.errors?.['required']) {
+                  <li><span class="label text-danger">El correo es requerido</span></li>
+                }
+                @if (form.get('email')?.errors?.['email']) {
+                  <li><span class="label text-danger">El correo no tiene el formato correcto</span></li>
+                }
+              </ul>
+            }
+            <nb-form-field>
+              <input fullWidth type="password" formControlName="password" nbInput 
+              status="{{form.get('password')?.errors && (form.get('password')?.dirty || form.get('password')?.touched) ? 'danger' : 'basic'}}" placeholder="Contrasena">
+              <nb-icon nbPrefix icon="lock-outline" pack="eva"></nb-icon>
+            </nb-form-field>
+            @if (form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)) {
+              <ul class="error-list">
+                @if (form.get('password')?.errors?.['required']) {
+                  <li><span class="label text-danger">La contrasena es requerida</span></li>
+                }
+              </ul>
+            }
+            <nb-form-field>
+              <input fullWidth type="confirmPassword" formControlName="confirmPassword" nbInput 
+              status="{{form.get('confirmPassword')?.errors &&
+              (form.get('confirmPassword')?.dirty || form.get('confirmPassword')?.touched) || 
+              (form.errors?.['mismatch'] && (form.get('confirmPassword')?.dirty || form.get('confirmPassword')?.touched)) ? 'danger' : 'basic'}}" placeholder="Confirmar Contrasena">
+              <nb-icon nbPrefix icon="lock-outline" pack="eva"></nb-icon>
+            </nb-form-field>
+            @if (form.get('confirmPassword')?.dirty || form.get('confirmPassword')?.touched) {
+              <ul class="error-list">
+                @if (form.get('confirmPassword')?.errors?.['required']) {
+                  <li><span class="label text-danger text-align-left">La confirmacion de contrasena es requerida</span></li>
+                }
+                @if (form.errors?.['mismatch']) {
+                  <li><span class="label text-danger">Las contrasenas no coinciden</span></li>
+                }
+              </ul>
+            }
+            <button [disabled]="loading || form.invalid" [nbSpinner]="loading" nbSpinnerStatus="control" nbButton shape="round" size="medium" status="primary" (click)="login($event)">
+              {{ !loading ? 'Registrar' : '' }}
+            </button>
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </nb-layout-column>
+</nb-layout>
